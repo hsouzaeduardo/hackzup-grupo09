@@ -1,0 +1,21 @@
+@api_consulta_HostAddress = http://localhost:5051
+
+GET {{api_consulta_HostAddress}}/familias/
+Accept: application/json
+
+###
+
+GET {{api_consulta_HostAddress}}/familias/cidade
+Accept: application/json
+
+###
+
+GET {{api_consulta_HostAddress}}/familias/idade
+Accept: application/json
+
+###
+
+GET {{api_consulta_HostAddress}}/familias/situacao
+Accept: application/json
+
+###
