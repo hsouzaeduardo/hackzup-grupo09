@@ -16,6 +16,7 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.TypeInfoResolver = JsonContext.Default;
     });
+
 builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
 {
     ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]

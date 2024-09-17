@@ -3,9 +3,11 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using mspersistence.Helper;
 using Npgsql;
 using System;
 using System.Data;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,13 +18,16 @@ public class ServiceBusListener : IHostedService
     private readonly string _queueName;
     private readonly string _postgresConnectionString;
     private ServiceBusProcessor _processor;
-
+    private readonly string _criptKey;
+    private readonly byte[] _criptKeyIV;
     public ServiceBusListener(ILogger<ServiceBusListener> logger, IConfiguration configuration)
     {
         _logger = logger;
         _serviceBusConnectionString = configuration["ServiceBus:ConnectionString"];
         _queueName = configuration["ServiceBus:QueueName"];
         _postgresConnectionString = configuration.GetConnectionString("PostgresConnection");
+        _criptKey = configuration["Cripto:Key"];
+        _criptKeyIV = Encoding.ASCII.GetBytes(configuration["Cripto:IV"]);
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -56,7 +61,7 @@ public class ServiceBusListener : IHostedService
             {
                 dbConnection.Open();
                 
-                await dbConnection.ExecuteAsync(sqlCommand);  // Executa o SQL
+                await dbConnection.ExecuteAsync(sqlCommand.Decrypt(_criptKey, _criptKeyIV));  // Executa o SQL
 
                 _logger.LogInformation("SQL command executed successfully.");
             }

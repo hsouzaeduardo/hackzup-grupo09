@@ -12,15 +12,15 @@ RUN apt-get update \
     clang zlib1g-dev
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["api-consulta/api-consulta.csproj", "api-consulta/"]
+COPY ["api-consulta.csproj", "api-consulta/"]
 RUN dotnet restore "./api-consulta/api-consulta.csproj"
 COPY . .
 WORKDIR "/src/api-consulta"
-RUN dotnet build "./api-consulta.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./api-consulta/api-consulta.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./api-consulta.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
+RUN dotnet publish "./api-consulta/api-consulta.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
 
 FROM mcr.microsoft.com/dotnet/runtime-deps:8.0 AS final
 WORKDIR /app

@@ -7,11 +7,14 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ApplicationInsightsResourceId>/subscriptions/f0b99507-d9cd-4a31-93f8-ce27b88b7969/resourceGroups/HackathonZUP/providers/microsoft.insights/components/fncleaningapp</ApplicationInsightsResourceId>
+    <UserSecretsId>09e17a15-00c2-4d68-b511-43179958af15</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.1" />
     <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.7.24405.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageReference Include="Npgsql" Version="8.0.3" />
