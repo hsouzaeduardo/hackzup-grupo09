@@ -1,0 +1,6 @@
+@clearapi_HostAddress = http://localhost:5077
+
+GET {{clearapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
